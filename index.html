@@ -158,10 +158,10 @@
           <div class="enquiry-field"><label for="enquiry-phone">Phone number <small lang="zh">电话号码</small></label><input id="enquiry-phone" name="phone" type="tel" autocomplete="tel" placeholder="Country code + number"></div>
           <div class="enquiry-field"><label for="enquiry-email">Email <small lang="zh">电子邮箱</small></label><input id="enquiry-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
           <div class="enquiry-field enquiry-field-wide"><label for="enquiry-message">Message <small lang="zh">询盘内容</small></label><textarea id="enquiry-message" name="message" rows="4" placeholder="Product, specifications, quantity, destination…" required></textarea></div>
-          <button class="button button-lime enquiry-submit" type="submit"><span class="button-copy">Prepare email<small lang="zh">准备发送询盘</small></span><span aria-hidden="true">↗</span></button>
-          <p class="enquiry-note">Your email app will open with these details ready to send.<small lang="zh">点击后将打开您的邮件应用，并自动填写以上询盘信息，确认后即可发送。</small></p>
+          <button class="button button-lime enquiry-submit" type="submit"><span class="button-copy">Open Gmail to send<small lang="zh">打开 Gmail 并发送</small></span><span aria-hidden="true">↗</span></button>
+          <p class="enquiry-note">Gmail will open with these details filled in. Review them, then press Send.<small lang="zh">Gmail 将自动填写以上信息。请核对内容后点击发送。</small><a class="enquiry-email-fallback" href="mailto:cvsaminmakmur@gmail.com">Use your default email app instead · 使用默认邮件应用</a></p>
         </form>
-        <div class="contact-actions"><a class="button button-lime" href="mailto:cvsaminmakmur@gmail.com"><span class="button-copy">Email us directly<small lang="zh">直接发送邮件</small></span><span aria-hidden="true">↗</span></a><a class="contact-phone" href="https://wa.me/62811292363">WhatsApp <strong>+62 811-292363</strong><small lang="zh">欢迎通过 WhatsApp 联系我们</small></a></div>
+        <div class="contact-actions"><a class="button button-lime" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cvsaminmakmur%40gmail.com" target="_blank" rel="noopener"><span class="button-copy">Email us directly<small lang="zh">直接发送邮件</small></span><span aria-hidden="true">↗</span></a><a class="contact-phone" href="https://wa.me/62811292363">WhatsApp <strong>+62 811-292363</strong><small lang="zh">欢迎通过 WhatsApp 联系我们</small></a></div>
         <p class="contact-address">Jl. Raya Magelang–Kopeng KM 2, Magelang 56192, Central Java, Indonesia.<span lang="zh">地址：印度尼西亚中爪哇省马格朗市 Magelang–Kopeng 公路2公里处，邮编56192。</span></p>
       </div>
       <aside class="wechat-card"><div class="wechat-heading"><span class="wechat-mark" aria-hidden="true">微</span><span><strong>Connect on WeChat</strong><small lang="zh">添加微信</small></span></div><div class="wechat-qr"><img src="wechat.jpg" alt="WeChat QR code for Samin Makmur — scan to connect · CV. SAMIN MAKMUR 微信二维码，扫码联系" loading="lazy" width="936" height="936"></div><div class="wechat-details"><span>WeChat ID · 微信号</span><strong>orlandoardana</strong><small lang="zh">扫码添加 CV. SAMIN MAKMUR</small></div></aside>
@@ -169,7 +169,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="footer-main"><a class="brand footer-brand" href="#top"><span class="brand-logo-frame"><img class="brand-logo" src="logo-samin-makmur.svg" alt=""></span><span class="brand-tagline">INDONESIAN SPICE PARTNER<small lang="zh">印尼香料贸易伙伴</small></span></a><p>Your Indonesian Spices Trading Partner<br>Mitra Dagang Rempah Nusantara Anda<br><span lang="zh">您值得信赖的印尼香料贸易伙伴</span></p><div class="footer-contact"><a href="mailto:cvsaminmakmur@gmail.com">Email · cvsaminmakmur@gmail.com</a><a href="https://wa.me/62811292363">WhatsApp · +62 811-292363</a><span>WeChat · orlandoardana</span><span lang="zh">微信号 · orlandoardana</span><span>Jl. Raya Magelang–Kopeng KM 2, Magelang 56192, Central Java, Indonesia</span><span lang="zh">印度尼西亚中爪哇省马格朗市 Magelang–Kopeng 公路2公里，邮编56192</span></div></div>
+    <div class="footer-main"><a class="brand footer-brand" href="#top"><span class="brand-logo-frame"><img class="brand-logo" src="logo-samin-makmur.svg" alt=""></span><span class="brand-tagline">INDONESIAN SPICE PARTNER<small lang="zh">印尼香料贸易伙伴</small></span></a><p>Your Indonesian Spices Trading Partner<br>Mitra Dagang Rempah Nusantara Anda<br><span lang="zh">您值得信赖的印尼香料贸易伙伴</span></p><div class="footer-contact"><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cvsaminmakmur%40gmail.com" target="_blank" rel="noopener">Email · cvsaminmakmur@gmail.com</a><a href="https://wa.me/62811292363">WhatsApp · +62 811-292363</a><span>WeChat · orlandoardana</span><span lang="zh">微信号 · orlandoardana</span><span>Jl. Raya Magelang–Kopeng KM 2, Magelang 56192, Central Java, Indonesia</span><span lang="zh">印度尼西亚中爪哇省马格朗市 Magelang–Kopeng 公路2公里，邮编56192</span></div></div>
     <div class="footer-bottom"><span>© 2025 CV. SAMIN MAKMUR. All rights reserved. · 版权所有</span><a href="#top">Back to top · 返回顶部 ↑</a></div>
   </footer>
   <script>
@@ -202,7 +202,9 @@
         'Message:',
         enquiry.get('message')
       ].join('\n');
-      window.location.href = `mailto:cvsaminmakmur@gmail.com?${new URLSearchParams({ subject, body })}`;
+      const composeUrl = new URL('https://mail.google.com/mail/');
+      composeUrl.search = new URLSearchParams({ view: 'cm', fs: '1', to: 'cvsaminmakmur@gmail.com', su: subject, body }).toString();
+      window.location.assign(composeUrl.toString());
     });
   </script>
 </body>
