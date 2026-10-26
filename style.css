@@ -379,3 +379,24 @@ h1, h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.035em; l
   .wechat-card { width: min(100%, 310px); justify-self: center; padding: 17px; }
   .wechat-qr { width: 100%; }
 }
+
+.enquiry-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px 12px; margin-top: 24px; padding: 20px; border: 1px solid rgba(255,255,255,.7); border-radius: 16px; color: var(--forest); background: #f8f9f3; box-shadow: 0 18px 44px rgba(0,0,0,.17); }
+.enquiry-form-heading { grid-column: 1 / -1; }
+.enquiry-form-heading h3 { display: flex; align-items: baseline; gap: 9px; margin: 0 0 5px; color: var(--forest); font-size: 16px; }
+.enquiry-form-heading h3 small, .enquiry-field label small { color: #758278; font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 10px; font-weight: 500; }
+.enquiry-form-heading p { margin: 0; color: #68766c; font-size: 10px; line-height: 1.6; }
+.enquiry-field { min-width: 0; display: grid; align-content: start; gap: 6px; }
+.enquiry-field-wide { grid-column: 1 / -1; }
+.enquiry-field label { display: flex; align-items: baseline; gap: 7px; color: #34493c; font-size: 10px; font-weight: 700; }
+.enquiry-field input, .enquiry-field textarea { width: 100%; min-width: 0; padding: 11px 12px; border: 1px solid #dce3d8; border-radius: 8px; outline: none; color: #173c2d; background: #fff; font: inherit; font-size: 11px; line-height: 1.5; transition: border-color .18s ease, box-shadow .18s ease; }
+.enquiry-field textarea { min-height: 100px; resize: vertical; }
+.enquiry-field input::placeholder, .enquiry-field textarea::placeholder { color: #9aa49d; }
+.enquiry-field input:focus-visible, .enquiry-field textarea:focus-visible { border-color: #8fa52a; box-shadow: 0 0 0 3px rgba(190,220,65,.24); }
+.enquiry-submit { justify-self: start; min-width: 178px; border: 0; font: inherit; cursor: pointer; }
+.enquiry-note { grid-column: 1 / -1; margin: 0; color: #68766c; font-size: 9px; line-height: 1.6; }
+.enquiry-note small { display: block; margin-top: 3px; color: #7e8981; font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 9px; line-height: 1.6; }
+@media (max-width: 760px) {
+  .enquiry-form { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
+  .enquiry-field-wide, .enquiry-note, .enquiry-form-heading { grid-column: auto; }
+  .enquiry-submit { width: 100%; justify-content: space-between; }
+}
