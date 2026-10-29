@@ -165,7 +165,11 @@
           <button class="button button-lime enquiry-submit" type="submit"><span class="button-copy">Send enquiry<small lang="zh">发送询盘</small></span><span aria-hidden="true">↗</span></button>
           <p class="enquiry-note">Your enquiry will be emailed directly to our team.<small lang="zh">您的询盘将直接通过电子邮件发送给我们的团队。</small><span class="enquiry-privacy">Form submissions are processed by FormSubmit to deliver your enquiry.<small lang="zh">表单信息将由 FormSubmit 处理并转发您的询盘。</small></span></p>
         </form>
-        <p class="enquiry-status" id="enquiry-status" role="status" aria-live="polite" hidden>Thank you. Your enquiry has been submitted to our team.<small lang="zh">感谢您的询盘，信息已提交给我们的团队。</small></p>
+        <div class="enquiry-status" id="enquiry-status" role="status" aria-live="polite" hidden>
+          <span id="enquiry-status-message">Thank you. Your enquiry has been submitted to our team.</span>
+          <small id="enquiry-status-zh" lang="zh">感谢您的询盘，信息已提交给我们的团队。</small>
+          <a class="enquiry-status-fallback" id="enquiry-gmail-fallback" target="_blank" rel="noopener" hidden>Open a prepared email in Gmail ↗<small lang="zh">在 Gmail 中打开已填写的邮件 ↗</small></a>
+        </div>
         <div class="contact-actions"><a class="button button-lime" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cvsaminmakmur%40gmail.com" target="_blank" rel="noopener"><span class="button-copy">Email us directly<small lang="zh">直接发送邮件</small></span><span aria-hidden="true">↗</span></a><a class="contact-phone" href="https://wa.me/62811292363">WhatsApp <strong>+62 811-292363</strong><small lang="zh">欢迎通过 WhatsApp 联系我们</small></a></div>
         <p class="contact-address">Jl. Raya Magelang–Kopeng KM 2, Magelang 56192, Central Java, Indonesia.<span lang="zh">地址：印度尼西亚中爪哇省马格朗市 Magelang–Kopeng 公路2公里处，邮编56192。</span></p>
       </div>
@@ -193,10 +197,72 @@
         siteNav.classList.remove('is-open');
       }
     });
+    const enquiryForm = document.querySelector('#enquiry-form');
     const enquiryStatus = document.querySelector('#enquiry-status');
+    const enquiryStatusMessage = document.querySelector('#enquiry-status-message');
+    const enquiryStatusZh = document.querySelector('#enquiry-status-zh');
+    const enquiryGmailFallback = document.querySelector('#enquiry-gmail-fallback');
     if (new URLSearchParams(window.location.search).get('enquiry') === 'sent') {
       enquiryStatus.hidden = false;
     }
+    enquiryForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!enquiryForm.reportValidity()) return;
+
+      const fields = Object.fromEntries(new FormData(enquiryForm).entries());
+      const submitButton = enquiryForm.querySelector('.enquiry-submit');
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      enquiryStatus.hidden = false;
+      enquiryStatus.classList.remove('is-error');
+      enquiryGmailFallback.hidden = true;
+      enquiryStatusMessage.textContent = 'Sending your enquiry…';
+      enquiryStatusZh.textContent = '正在发送您的询盘…';
+
+      const payload = new URLSearchParams();
+      Object.entries(fields).forEach(([key, value]) => payload.append(key, String(value)));
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 15000);
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/cvsaminmakmur@gmail.com', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: payload,
+          signal: controller.signal
+        });
+        const result = await response.json();
+        if (!response.ok || result.success === false || result.success === 'false') {
+          throw new Error('Enquiry delivery failed');
+        }
+        enquiryStatusMessage.textContent = 'Thank you. Your enquiry has been sent to our team.';
+        enquiryStatusZh.textContent = '感谢您的询盘，信息已发送给我们的团队。';
+        enquiryForm.reset();
+      } catch (error) {
+        const name = String(fields.name || '').trim();
+        const message = [
+          `Name: ${name}`,
+          `Company: ${fields.company || ''}`,
+          `Phone number: ${fields.phone || ''}`,
+          `Email: ${fields.email || ''}`,
+          '',
+          'Message:',
+          fields.message || ''
+        ].join('\n');
+        enquiryStatus.classList.add('is-error');
+        enquiryStatusMessage.textContent = 'The enquiry service is temporarily unavailable. Your details are still in this form; please send them using the prepared email below.';
+        enquiryStatusZh.textContent = '询盘服务暂时不可用。您填写的信息仍保留在表单中，请点击下方链接通过邮件发送。';
+        enquiryGmailFallback.href = `https://mail.google.com/mail/?${new URLSearchParams({
+          view: 'cm', fs: '1', to: 'cvsaminmakmur@gmail.com',
+          su: `Website enquiry${name ? ` from ${name}` : ''}`,
+          body: message
+        })}`;
+        enquiryGmailFallback.hidden = false;
+      } finally {
+        window.clearTimeout(timeout);
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+      }
+    });
   </script>
 </body>
 </html>
