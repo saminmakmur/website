@@ -151,16 +151,21 @@
         <h2>Let’s build a<br><em>good trade together.</em><span class="heading-zh" lang="zh">携手合作，共拓市场</span></h2>
         <p>Tell us what you’re looking for. Our team is ready to hear about your product and destination requirements.</p>
         <p class="translation-zh" lang="zh">欢迎告诉我们您关注的产品及目的地要求，我们的团队期待与您沟通。</p>
-        <form class="enquiry-form" id="enquiry-form">
+        <form class="enquiry-form" id="enquiry-form" action="https://formsubmit.co/cvsaminmakmur@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Website Enquiry - CV. SAMIN MAKMUR">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://saminmakmur.github.io/website/?enquiry=sent#contact">
+          <input type="text" name="_honey" autocomplete="off" tabindex="-1" aria-hidden="true" style="display:none">
           <div class="enquiry-form-heading"><h3>Enquiry details <small lang="zh">询盘信息</small></h3><p>Share your contact details and requirements.</p></div>
           <div class="enquiry-field"><label for="enquiry-name">Name <small lang="zh">姓名</small></label><input id="enquiry-name" name="name" type="text" autocomplete="name" placeholder="Your name" required></div>
           <div class="enquiry-field"><label for="enquiry-company">Company <small lang="zh">公司</small></label><input id="enquiry-company" name="company" type="text" autocomplete="organization" placeholder="Company name"></div>
           <div class="enquiry-field"><label for="enquiry-phone">Phone number <small lang="zh">电话号码</small></label><input id="enquiry-phone" name="phone" type="tel" autocomplete="tel" placeholder="Country code + number"></div>
           <div class="enquiry-field"><label for="enquiry-email">Email <small lang="zh">电子邮箱</small></label><input id="enquiry-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
           <div class="enquiry-field enquiry-field-wide"><label for="enquiry-message">Message <small lang="zh">询盘内容</small></label><textarea id="enquiry-message" name="message" rows="4" placeholder="Product, specifications, quantity, destination…" required></textarea></div>
-          <button class="button button-lime enquiry-submit" type="submit"><span class="button-copy">Open Gmail to send<small lang="zh">打开 Gmail 并发送</small></span><span aria-hidden="true">↗</span></button>
-          <p class="enquiry-note">Gmail will open with these details filled in. Review them, then press Send.<small lang="zh">Gmail 将自动填写以上信息。请核对内容后点击发送。</small><a class="enquiry-email-fallback" href="mailto:cvsaminmakmur@gmail.com">Use your default email app instead · 使用默认邮件应用</a></p>
+          <button class="button button-lime enquiry-submit" type="submit"><span class="button-copy">Send enquiry<small lang="zh">发送询盘</small></span><span aria-hidden="true">↗</span></button>
+          <p class="enquiry-note">Your enquiry will be emailed directly to our team.<small lang="zh">您的询盘将直接通过电子邮件发送给我们的团队。</small><span class="enquiry-privacy">Form submissions are processed by FormSubmit to deliver your enquiry.<small lang="zh">表单信息将由 FormSubmit 处理并转发您的询盘。</small></span></p>
         </form>
+        <p class="enquiry-status" id="enquiry-status" role="status" aria-live="polite" hidden>Thank you. Your enquiry has been submitted to our team.<small lang="zh">感谢您的询盘，信息已提交给我们的团队。</small></p>
         <div class="contact-actions"><a class="button button-lime" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cvsaminmakmur%40gmail.com" target="_blank" rel="noopener"><span class="button-copy">Email us directly<small lang="zh">直接发送邮件</small></span><span aria-hidden="true">↗</span></a><a class="contact-phone" href="https://wa.me/62811292363">WhatsApp <strong>+62 811-292363</strong><small lang="zh">欢迎通过 WhatsApp 联系我们</small></a></div>
         <p class="contact-address">Jl. Raya Magelang–Kopeng KM 2, Magelang 56192, Central Java, Indonesia.<span lang="zh">地址：印度尼西亚中爪哇省马格朗市 Magelang–Kopeng 公路2公里处，邮编56192。</span></p>
       </div>
@@ -188,24 +193,10 @@
         siteNav.classList.remove('is-open');
       }
     });
-    const enquiryForm = document.querySelector('#enquiry-form');
-    enquiryForm.addEventListener('submit', event => {
-      event.preventDefault();
-      const enquiry = new FormData(enquiryForm);
-      const subject = `Website enquiry from ${enquiry.get('name')}`;
-      const body = [
-        `Name: ${enquiry.get('name')}`,
-        `Company: ${enquiry.get('company') || 'Not provided'}`,
-        `Phone number: ${enquiry.get('phone') || 'Not provided'}`,
-        `Email: ${enquiry.get('email')}`,
-        '',
-        'Message:',
-        enquiry.get('message')
-      ].join('\n');
-      const composeUrl = new URL('https://mail.google.com/mail/');
-      composeUrl.search = new URLSearchParams({ view: 'cm', fs: '1', to: 'cvsaminmakmur@gmail.com', su: subject, body }).toString();
-      window.location.assign(composeUrl.toString());
-    });
+    const enquiryStatus = document.querySelector('#enquiry-status');
+    if (new URLSearchParams(window.location.search).get('enquiry') === 'sent') {
+      enquiryStatus.hidden = false;
+    }
   </script>
 </body>
 </html>

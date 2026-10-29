@@ -395,8 +395,9 @@ h1, h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.035em; l
 .enquiry-submit { justify-self: start; min-width: 178px; border: 0; font: inherit; cursor: pointer; }
 .enquiry-note { grid-column: 1 / -1; margin: 0; color: #68766c; font-size: 9px; line-height: 1.6; }
 .enquiry-note small { display: block; margin-top: 3px; color: #7e8981; font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 9px; line-height: 1.6; }
-.enquiry-email-fallback { display: inline-block; margin-top: 7px; color: #355a43; font-size: 9px; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.enquiry-email-fallback:hover { color: #728a1f; }
+.enquiry-privacy { display: block; margin-top: 7px; padding-top: 7px; border-top: 1px solid #e2e7df; color: #758278; font-size: 9px; line-height: 1.55; }
+.enquiry-status { max-width: 720px; margin: 14px 0 0; padding: 12px 15px; border: 1px solid rgba(222,239,155,.65); border-radius: 9px; color: #183c2d; background: #eef5d7; font-size: 11px; line-height: 1.6; }
+.enquiry-status small { display: block; margin-top: 3px; color: #5c705f; font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 10px; }
 @media (max-width: 760px) {
   .enquiry-form { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
   .enquiry-field-wide, .enquiry-note, .enquiry-form-heading { grid-column: auto; }
